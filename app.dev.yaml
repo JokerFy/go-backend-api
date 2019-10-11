@@ -1,0 +1,7 @@
+appname: gobackend
+addr: :9999
+mysql:
+  dsn: "root:root@tcp(120.78.186.249:3307)/backend_api?charset=utf8&parseTime=True"
+redis:
+  addr: ''
+  db: 0
