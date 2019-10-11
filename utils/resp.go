@@ -19,17 +19,11 @@ func RespOkList(c *gin.Context, lists interface{}, total interface{}) {
 }
 
 func Resp(c *gin.Context, code int, data interface{}, msg string) {
-	//设置header为JSON（默认是text/html）
-	c.Header("Content-Type", "appliction/json")
-	c.Header("Access-Control-Allow-Origin", "*")             //允许访问所有域
-	c.Header("Access-Control-Allow-Headers", "Content-Type") //header的类型
-	c.AbortWithStatus(http.StatusOK)
-
 	//输出
 	c.JSON(200, gin.H{
-		"Code": code,
-		"Msg":  msg,
-		"Data": data,
+		"code": code,
+		"msg":  msg,
+		"data": data,
 	})
 }
 

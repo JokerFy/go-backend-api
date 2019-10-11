@@ -9,7 +9,7 @@ func Init(e *gin.Engine) {
 	user := e.Group("/user")
 	{
 		v1 := user.Group("/v1")
-		v1.GET("/login", user_v1.Login)
+		v1.POST("/login", user_v1.Login)
 		v1.POST("/register", user_v1.Register)
 	}
 }

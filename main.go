@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gobackend/conf"
 	"gobackend/db"
+	"gobackend/middleware"
 	"gobackend/router"
 	"log"
 )
@@ -27,6 +28,7 @@ func main() {
 	gin.DisableConsoleColor()
 	//创建空白中间件
 	app := gin.New()
+	app.Use(middleware.Cors())
 	router.Init(app)
 	// Recovery 中间件从任何 panic 恢复，如果出现 panic，它会写一个 500 错误。
 	app.Use(gin.Recovery())
