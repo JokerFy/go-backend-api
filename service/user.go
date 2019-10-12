@@ -43,7 +43,7 @@ func (s *UserService) Register(username string, password string) (user model.Use
 //登录函数
 func (s *UserService) Login(
 	username, //手机
-	plainpwd string) (user model.User, err error) {
+	plainpwd string) (token string, err error) {
 
 	//首先通过手机号查询用户
 	userInstance := model.User{}
@@ -51,17 +51,24 @@ func (s *UserService) Login(
 	userInstance = userInstance.GetOne()
 	//如果没有找到
 	if userInstance.Id == 0 {
-		return userInstance, errors.New("该用户不存在")
+		return "", errors.New("该用户不存在")
 	}
 	//查询到了比对密码
 	if !utils.ValidatePasswd(plainpwd, userInstance.Salt, userInstance.Passwd) {
-		return userInstance, errors.New("密码不正确")
+		return "", errors.New("密码不正确")
 	}
 	//刷新token,安全
 	str := fmt.Sprintf("%d", time.Now().Unix())
-	token := utils.MD5Encode(str)
+	token = utils.MD5Encode(str)
 	userInstance.UpdateByField("token", token)
 
 	//返回数据
-	return userInstance, nil
+	return token, nil
+}
+
+func (s *UserService) GetUserInfo(token string) (userInfo model.User) {
+	userInstance := model.User{}
+	userInstance.Token = token
+	userInfo = userInstance.GetOne()
+	return
 }

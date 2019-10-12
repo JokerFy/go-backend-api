@@ -42,3 +42,27 @@ func Register(c *gin.Context) {
 		utils.RespFail(c, err.Error())
 	}
 }
+
+func UserInfo(c *gin.Context) {
+	token := c.Query("token")
+
+	userInfo := userService.GetUserInfo(token)
+	if userInfo.Id > 0 {
+		utils.RespOk(c, userInfo, "操作成功")
+		return
+	} else {
+		utils.RespFail(c, "token无效")
+	}
+}
+
+func LoginOut(c *gin.Context) {
+	token := c.PostForm("token")
+
+	userInfo := userService.GetUserInfo(token)
+	if userInfo.Id > 0 {
+		utils.RespOk(c, "", "退出登录成功")
+		return
+	} else {
+		utils.RespFail(c, "token无效")
+	}
+}

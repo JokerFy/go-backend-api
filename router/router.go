@@ -11,5 +11,7 @@ func Init(e *gin.Engine) {
 		v1 := user.Group("/v1")
 		v1.POST("/login", user_v1.Login)
 		v1.POST("/register", user_v1.Register)
+		v1.GET("/info", user_v1.UserInfo)
+		v1.POST("/logout", user_v1.LoginOut)
 	}
 }

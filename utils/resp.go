@@ -10,7 +10,7 @@ func RespFail(c *gin.Context, msg string) {
 }
 
 func RespOk(c *gin.Context, data interface{}, msg string) {
-	Resp(c, 0, data, msg)
+	Resp(c, 20000, data, msg)
 }
 
 func RespOkList(c *gin.Context, lists interface{}, total interface{}) {
